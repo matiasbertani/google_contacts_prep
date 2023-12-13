@@ -1,7 +1,7 @@
 from dash import dcc, html
 
 from app import app
-from tabs import tab_bases
+from frontend import tab_bases
 
 
 app.layout = html.Div([
