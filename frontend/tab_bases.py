@@ -12,7 +12,7 @@ from dash.dependencies import Input, Output, State
 import pandas as pd
 from backend.Driver_Bases import armador_bases as bas
 from flask import send_file
-from app import app
+from frontend.app import app
 
 df_base = None
 card_planilla_bases = dbc.Card(
@@ -21,7 +21,6 @@ card_planilla_bases = dbc.Card(
             [
                 dbc.Row(
                     [
-                        dbc.Col(html.H1("ACTUALIZADOR DE BASES"), width=6),
                         dbc.Col(
                             dbc.Spinner(
                                 html.Div(id="subir-planilla-bases"),
