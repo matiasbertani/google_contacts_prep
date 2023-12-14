@@ -25,6 +25,26 @@ class GoogleContactsDataBuilder:
 
         self.RESULTADOS = dict()
 
+    def build_datasheet(self) -> None:
+
+        self.__renombrar()
+        self.separa_masivo()
+
+        self.df_datos = self.df_datos.melt(id_vars=self.DNI + self.NOMBRE + self.SEPARADOR)
+
+        self.df_datos.dropna(axis='index', inplace=True)
+
+        self.df_datos["Nombre"] = self.df_datos["variable"] + " " + self.df_datos["Mat. Unica"]
+        self.df_datos.drop(['Mat. Unica', 'variable'], inplace=True, axis=1)
+
+        self.df_datos = self.df_datos.rename(columns={'Razon Social': 'Apellido', 'value': 'Trabajo'})
+        self.df_datos = self.df_datos.reindex(columns=['Nombre', 'Apellido', 'Trabajo', 'Ejecutivo'])
+
+        for ejecutivo, datos in self.df_datos.groupby(self.df_datos[self.SEPARADOR[0]]):
+            self.RESULTADOS[ejecutivo] = datos[['Nombre', 'Apellido', 'Trabajo']].copy()
+
+        self.Guardar_resultados()
+
     def __renombrar(self):
         'Elige de los datos solo lo necesario y reescribe los nombre sque le sirven '
         df_fono = self.df_datos[self.necesario]
@@ -46,26 +66,6 @@ class GoogleContactsDataBuilder:
 
         self.df_datos.drop('MASI', inplace=True, axis=1)
         self.df_datos['Ejecutivo'].fillna('sin ejecutivo', inplace=True)
-
-    def build_datasheet(self) -> None:
-
-        self.__renombrar()
-        self.separa_masivo()
-
-        self.df_datos = self.df_datos.melt(id_vars=self.DNI + self.NOMBRE + self.SEPARADOR)
-
-        self.df_datos.dropna(axis='index', inplace=True)
-
-        self.df_datos["Nombre"] = self.df_datos["variable"] + " " + self.df_datos["Mat. Unica"]
-        self.df_datos.drop(['Mat. Unica', 'variable'], inplace=True, axis=1)
-
-        self.df_datos = self.df_datos.rename(columns={'Razon Social': 'Apellido', 'value': 'Trabajo'})
-        self.df_datos = self.df_datos.reindex(columns=['Nombre', 'Apellido', 'Trabajo', 'Ejecutivo'])
-
-        for ejecutivo, datos in self.df_datos.groupby(self.df_datos[self.SEPARADOR[0]]):
-            self.RESULTADOS[ejecutivo] = datos[['Nombre', 'Apellido', 'Trabajo']].copy()
-
-        self.Guardar_resultados()
 
     def Guardar_resultados(self):
         ruta = 'resultados temporales'
