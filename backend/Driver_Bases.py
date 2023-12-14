@@ -12,7 +12,8 @@ class GoogleContactsDataBuilder:
         self.DNI = col_dni  # ['Mat. Unica']
         self.NOMBRE = razon_social  # ['Razon Social']
         self.MASIVO = tel_masivo  # ['Telefono_1']
-        self.OTROS = tel_otros  # ['Telefono_2','Telefono_3','Telefono_4','Telefono_5','Telefono_6','Telefono_7','Telefono_8','Telefono_9']
+        # ['Telefono_2','Telefono_3','Telefono_4','Telefono_5','Telefono_6','Telefono_7','Telefono_8','Telefono_9']
+        self.OTROS = tel_otros
         self.SEPARADOR = col_separador  # ['Ejecutivo'
         # self.OTRO_DISTINTOR =['']
         self.necesario = self.DNI + self.NOMBRE + self.SEPARADOR + self.MASIVO + self.OTROS
@@ -39,35 +40,35 @@ class GoogleContactsDataBuilder:
 
         # masivos
 
-        renombre = {x: f'MASI {i}' for i,x in enumerate(list(masivos.columns), 1)}
+        renombre = {x: f'MASI {i}' for i, x in enumerate(list(masivos.columns), 1)}
         masivos = masivos.rename(columns=renombre)
         self.df_datos = pd.concat([self.df_datos, masivos], axis=1)
 
         self.df_datos.drop('MASI', inplace=True, axis=1)
-        self.df_datos['Ejecutivo'].fillna('sin ejecutivo', inplace= True)
+        self.df_datos['Ejecutivo'].fillna('sin ejecutivo', inplace=True)
 
     def build_datasheet(self) -> None:
 
-        self.__renombrar()   
+        self.__renombrar()
         self.separa_masivo()
 
         self.df_datos = self.df_datos.melt(id_vars=self.DNI + self.NOMBRE + self.SEPARADOR)
 
         self.df_datos.dropna(axis='index', inplace=True)
 
-        self.df_datos["Nombre"] =  self.df_datos["variable"] + " " + self.df_datos["Mat. Unica"]
-        self.df_datos.drop(['Mat. Unica','variable'], inplace=True, axis=1)
+        self.df_datos["Nombre"] = self.df_datos["variable"] + " " + self.df_datos["Mat. Unica"]
+        self.df_datos.drop(['Mat. Unica', 'variable'], inplace=True, axis=1)
 
-        self.df_datos = self.df_datos.rename(columns={'Razon Social': 'Apellido','value':'Trabajo'})
-        self.df_datos = self.df_datos.reindex(columns=['Nombre','Apellido','Trabajo','Ejecutivo'])
+        self.df_datos = self.df_datos.rename(columns={'Razon Social': 'Apellido', 'value': 'Trabajo'})
+        self.df_datos = self.df_datos.reindex(columns=['Nombre', 'Apellido', 'Trabajo', 'Ejecutivo'])
 
         for ejecutivo, datos in self.df_datos.groupby(self.df_datos[self.SEPARADOR[0]]):
-            self.RESULTADOS[ejecutivo] = datos[['Nombre','Apellido','Trabajo']].copy()
+            self.RESULTADOS[ejecutivo] = datos[['Nombre', 'Apellido', 'Trabajo']].copy()
 
         self.Guardar_resultados()
 
     def Guardar_resultados(self):
-        ruta ='resultados temporales'
+        ruta = 'resultados temporales'
         if os.path.isdir(ruta):
 
             os.chdir(ruta)
@@ -80,7 +81,8 @@ class GoogleContactsDataBuilder:
             finally:
                 os.chdir('..')
 
-        else: os.mkdir(ruta)     
+        else:
+            os.mkdir(ruta)
 
         # escribir archivos
         os.chdir(ruta)
