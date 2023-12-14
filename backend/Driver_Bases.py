@@ -3,7 +3,7 @@ import zipfile
 import os
 
 
-class armador_bases():
+class GoogleContactsDataBuilder:
 
     def __init__(self, base, col_dni, razon_social, tel_masivo, tel_otros, col_separador, sep_numeros='-') -> None:
 
@@ -46,7 +46,7 @@ class armador_bases():
         self.df_datos.drop('MASI', inplace=True, axis=1)
         self.df_datos['Ejecutivo'].fillna('sin ejecutivo', inplace= True)
 
-    def armar_base(self):
+    def build_datasheet(self) -> None:
 
         self.__renombrar()   
         self.separa_masivo()
