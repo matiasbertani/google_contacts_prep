@@ -10,7 +10,7 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 
 import pandas as pd
-from backend.Driver_Bases import GoogleContactsDataBuilder
+from backend.google_contacts_data_builder import GoogleContactsDataBuilder
 from flask import send_file
 from frontend.app import app
 
