@@ -27,45 +27,46 @@ class GoogleContactsDataBuilder:
 
     def build_datasheet(self) -> None:
 
-        self.__renombrar()
-        self.separa_masivo()
+        df_contacts = self._get_df_to_work_with()
+        df_contacts = self.separa_masivo(df_contacts)
 
-        self.df_datos = self.df_datos.melt(id_vars=self.DNI + self.NOMBRE + self.SEPARADOR)
+        self.df_contacts = self.df_contacts.melt(id_vars=self.DNI + self.NOMBRE + self.SEPARADOR)
 
-        self.df_datos.dropna(axis='index', inplace=True)
+        self.df_contacts.dropna(axis='index', inplace=True)
 
-        self.df_datos["Nombre"] = self.df_datos["variable"] + " " + self.df_datos["Mat. Unica"]
-        self.df_datos.drop(['Mat. Unica', 'variable'], inplace=True, axis=1)
+        self.df_contacts["Nombre"] = self.df_contacts["variable"] + " " + self.df_contacts["Mat. Unica"]
+        self.df_contacts.drop(['Mat. Unica', 'variable'], inplace=True, axis=1)
 
-        self.df_datos = self.df_datos.rename(columns={'Razon Social': 'Apellido', 'value': 'Trabajo'})
-        self.df_datos = self.df_datos.reindex(columns=['Nombre', 'Apellido', 'Trabajo', 'Ejecutivo'])
+        self.df_contacts = self.df_contacts.rename(columns={'Razon Social': 'Apellido', 'value': 'Trabajo'})
+        self.df_contacts = self.df_contacts.reindex(columns=['Nombre', 'Apellido', 'Trabajo', 'Ejecutivo'])
 
-        for ejecutivo, datos in self.df_datos.groupby(self.df_datos[self.SEPARADOR[0]]):
+        for ejecutivo, datos in self.df_contacts.groupby(self.df_contacts[self.SEPARADOR[0]]):
             self.RESULTADOS[ejecutivo] = datos[['Nombre', 'Apellido', 'Trabajo']].copy()
 
         self.Guardar_resultados()
 
-    def __renombrar(self):
+    def _get_df_to_work_with(self) -> pd.DataFrame:
         'Elige de los datos solo lo necesario y reescribe los nombre sque le sirven '
         df_fono = self.df_datos[self.necesario]
         renombre = {x: f'RIESGO {i}' for i, x in enumerate(self.OTROS, 1)}
         renombre[self.MASIVO[0]] = 'MASI'
         # renombre
-        self.df_datos = df_fono.rename(columns=renombre)
+        return df_fono.rename(columns=renombre)
 
-    def separa_masivo(self):
+    def separa_masivo(self, df: pd.DataFrame) -> pd.DataFrame:
         'separa los masivos dobles y ademas rellena los ejecutivos vacios'
-        masivos = self.df_datos['MASI'].str.split('-', expand=True)
+        masivos = df['MASI'].str.split('-', expand=True)
         # pepe.to_csv('muestra_3.csv', sep =';')
 
         # masivos
 
         renombre = {x: f'MASI {i}' for i, x in enumerate(list(masivos.columns), 1)}
         masivos = masivos.rename(columns=renombre)
-        self.df_datos = pd.concat([self.df_datos, masivos], axis=1)
+        df = pd.concat([df, masivos], axis=1)
 
-        self.df_datos.drop('MASI', inplace=True, axis=1)
-        self.df_datos['Ejecutivo'].fillna('sin ejecutivo', inplace=True)
+        df.drop('MASI', inplace=True, axis=1)
+        df['Ejecutivo'].fillna('sin ejecutivo', inplace=True)
+        return df
 
     def Guardar_resultados(self):
         ruta = 'resultados temporales'
