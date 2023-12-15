@@ -1,6 +1,10 @@
-import pandas as pd
-import zipfile
+from pathlib import Path
+
 import os
+import traceback
+import zipfile
+
+import pandas as pd
 
 
 class GoogleContactsDataBuilder:
@@ -25,25 +29,27 @@ class GoogleContactsDataBuilder:
 
         self.RESULTADOS = dict()
 
+        self.results_path = Path() / 'results'
+
     def build_datasheet(self) -> None:
 
         df_contacts = self._get_df_to_work_with()
         df_contacts = self._split_main_phones(df_contacts)
         df_contacts['Ejecutivo'].fillna('sin ejecutivo', inplace=True)
-        self.df_contacts = self.df_contacts.melt(id_vars=self.DNI + self.NOMBRE + self.SEPARADOR)
+        df_contacts = df_contacts.melt(id_vars=self.DNI + self.NOMBRE + self.SEPARADOR)
 
-        self.df_contacts.dropna(axis='index', inplace=True)
+        df_contacts.dropna(axis='index', inplace=True)
 
-        self.df_contacts["Nombre"] = self.df_contacts["variable"] + " " + self.df_contacts["Mat. Unica"]
-        self.df_contacts.drop(['Mat. Unica', 'variable'], inplace=True, axis=1)
+        df_contacts["Nombre"] = df_contacts["variable"] + " " + df_contacts["Mat. Unica"]
+        df_contacts.drop(['Mat. Unica', 'variable'], inplace=True, axis=1)
 
-        self.df_contacts = self.df_contacts.rename(columns={'Razon Social': 'Apellido', 'value': 'Trabajo'})
-        self.df_contacts = self.df_contacts.reindex(columns=['Nombre', 'Apellido', 'Trabajo', 'Ejecutivo'])
+        df_contacts = df_contacts.rename(columns={'Razon Social': 'Apellido', 'value': 'Trabajo'})
+        df_contacts = df_contacts.reindex(columns=['Nombre', 'Apellido', 'Trabajo', 'Ejecutivo'])
 
-        for ejecutivo, datos in self.df_contacts.groupby(self.df_contacts[self.SEPARADOR[0]]):
+        for ejecutivo, datos in df_contacts.groupby(df_contacts[self.SEPARADOR[0]]):
             self.RESULTADOS[ejecutivo] = datos[['Nombre', 'Apellido', 'Trabajo']].copy()
 
-        self.Guardar_resultados()
+        self._save_results()
 
     def _get_df_to_work_with(self) -> pd.DataFrame:
         df = self._get_only_required_columns_from_uploaded_data()
@@ -70,30 +76,29 @@ class GoogleContactsDataBuilder:
 
         return df
 
-    def Guardar_resultados(self):
-        ruta = 'resultados temporales'
-        if os.path.isdir(ruta):
+    def _save_results(self) -> None:
+        if not os.path.isdir(self.results_path):
+            os.mkdir(self.results_path)
 
-            os.chdir(ruta)
+        self._clean_result_dir()
+        self._write_results()
 
-            try:
-                # vaciar directorio archivos temproales
-                for file in os.listdir():
-                    os.remove(file)
-
-            finally:
-                os.chdir('..')
-
-        else:
-            os.mkdir(ruta)
-
-        # escribir archivos
-        os.chdir(ruta)
+    def _clean_result_dir(self) -> None:
         try:
-            # escerib
+            for file in os.listdir(self.results_path):
+                os.remove(self.results_path / file)
+        except Exception:
+            print(traceback.format_exc())
+
+    def _write_results(self) -> None:
+
+        try:
             with zipfile.ZipFile('Bases Google.zip', 'w') as csv_zip:
                 for ejec, data in self.RESULTADOS.items():
-                    csv_zip.writestr(f"{ejec}.csv", pd.DataFrame(data).to_csv(sep=';', encoding='ANSI', index=False))
+                    csv_zip.writestr(
+                        self.results_path / f"{ejec}.csv",
+                        pd.DataFrame(data).to_csv(sep=';', encoding='ANSI', index=False),
+                    )
 
-        finally:
-            os.chdir('..')
+        except Exception:
+            print(traceback.format_exc())
