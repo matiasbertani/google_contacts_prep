@@ -28,8 +28,8 @@ class GoogleContactsDataBuilder:
     def build_datasheet(self) -> None:
 
         df_contacts = self._get_df_to_work_with()
-        df_contacts = self.separa_masivo(df_contacts)
-
+        df_contacts = self._split_main_phones(df_contacts)
+        df_contacts['Ejecutivo'].fillna('sin ejecutivo', inplace=True)
         self.df_contacts = self.df_contacts.melt(id_vars=self.DNI + self.NOMBRE + self.SEPARADOR)
 
         self.df_contacts.dropna(axis='index', inplace=True)
@@ -58,19 +58,16 @@ class GoogleContactsDataBuilder:
         renaming_dict[self.MASIVO[0]] = 'MASI'
         return df.rename(columns=renaming_dict)
 
-    def separa_masivo(self, df: pd.DataFrame) -> pd.DataFrame:
-        'separa los masivos dobles y ademas rellena los ejecutivos vacios'
-        masivos = df['MASI'].str.split('-', expand=True)
-        # pepe.to_csv('muestra_3.csv', sep =';')
+    def _split_main_phones(self, df: pd.DataFrame) -> pd.DataFrame:
 
-        # masivos
+        splitted_main_phones = df['MASI'].str.split('-', expand=True)
 
-        renombre = {x: f'MASI {i}' for i, x in enumerate(list(masivos.columns), 1)}
-        masivos = masivos.rename(columns=renombre)
-        df = pd.concat([df, masivos], axis=1)
+        renaiming_dict = {x: f'MASI {i}' for i, x in enumerate(list(splitted_main_phones.columns), 1)}
+        splitted_main_phones = splitted_main_phones.rename(columns=renaiming_dict)
 
+        df = pd.concat([df, splitted_main_phones], axis=1)
         df.drop('MASI', inplace=True, axis=1)
-        df['Ejecutivo'].fillna('sin ejecutivo', inplace=True)
+
         return df
 
     def Guardar_resultados(self):
