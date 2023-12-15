@@ -10,7 +10,7 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 
 import pandas as pd
-from backend.Driver_Bases import armador_bases as bas
+from backend.google_contacts_data_builder import GoogleContactsDataBuilder
 from flask import send_file
 from frontend.app import app
 
@@ -227,8 +227,15 @@ def Boton_Armar_Planilla(n_clicks, razon_social, dni, tel_masivos, tel_otros, se
 
         time.sleep(1)
 
-        a = bas(df_base, [dni], [razon_social], tel_masivos, tel_otros, [separador])
-        a.armar_base()
+        builder = GoogleContactsDataBuilder(
+            df_base,
+            [dni],
+            [razon_social],
+            tel_masivos,
+            tel_otros,
+            [separador]
+        )
+        builder.build_datasheet()
         return "Variables Cargadas con exito", False
 
     raise PreventUpdate
