@@ -46,12 +46,17 @@ class GoogleContactsDataBuilder:
         self.Guardar_resultados()
 
     def _get_df_to_work_with(self) -> pd.DataFrame:
-        'Elige de los datos solo lo necesario y reescribe los nombre sque le sirven '
-        df_fono = self.df_datos[self.necesario]
-        renombre = {x: f'RIESGO {i}' for i, x in enumerate(self.OTROS, 1)}
-        renombre[self.MASIVO[0]] = 'MASI'
-        # renombre
-        return df_fono.rename(columns=renombre)
+        df = self._get_only_required_columns_from_uploaded_data()
+        df = self._rename_df_columns(df)
+        return df
+
+    def _get_only_required_columns_from_uploaded_data(self) -> pd.DataFrame:
+        return self.df_datos[self.necesario]
+
+    def _rename_df_columns(self, df: pd.DataFrame) -> pd.DataFrame:
+        renaming_dict = {column: f'RIESGO {index}' for index, column in enumerate(self.OTROS, 1)}
+        renaming_dict[self.MASIVO[0]] = 'MASI'
+        return df.rename(columns=renaming_dict)
 
     def separa_masivo(self, df: pd.DataFrame) -> pd.DataFrame:
         'separa los masivos dobles y ademas rellena los ejecutivos vacios'
