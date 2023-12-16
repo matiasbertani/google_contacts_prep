@@ -21,6 +21,7 @@ class GoogleContactsDataBuilder:
     ) -> None:
 
         self.uploaded_datesheet = uploaded_datesheet
+
         self.identifier_column = identifier_column
         self.full_name_column = full_name_column
         self.main_phones_column = main_phones_columns
@@ -35,7 +36,6 @@ class GoogleContactsDataBuilder:
 
         df_contacts = self._get_df_to_work_with()
         df_contacts = self._split_main_phones(df_contacts)
-        df_contacts['Ejecutivo'].fillna('sin ejecutivo', inplace=True)
         df_contacts = df_contacts.melt(
             id_vars=self.identifier_column + self.full_name_column + self.column_to_group_by
         )
@@ -56,6 +56,7 @@ class GoogleContactsDataBuilder:
     def _get_df_to_work_with(self) -> pd.DataFrame:
         df = self._get_only_required_columns_from_uploaded_data()
         df = self._rename_df_columns(df)
+        df[self.column_to_group_by].fillna(f'Sin {self.column_to_group_by}', inplace=True)
         return df
 
     def _get_only_required_columns_from_uploaded_data(self) -> pd.DataFrame:
