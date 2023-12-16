@@ -183,7 +183,7 @@ def Cargar_Planilla_Bases(content, name, date):
         decoded = base64.b64decode(content_string)
         try:
             if 'csv' in name:
-                df = pd.read_csv(io.StringIO(decoded.decode('ANSI')), sep=';', encoding='ANSI', dtype=str)
+                df = pd.read_csv(io.BytesIO(decoded), encoding='latin_1', sep=';', dtype=str)
 
             elif 'xls' in name:
                 # Assume that the user uploaded an excel file
