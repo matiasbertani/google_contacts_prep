@@ -21,6 +21,7 @@ class GoogleContactsDataBuilder:
     ) -> None:
 
         self.uploaded_datesheet = uploaded_datesheet
+
         self.identifier_column = identifier_column
         self.full_name_column = full_name_column
         self.main_phones_column = main_phones_columns
@@ -35,17 +36,11 @@ class GoogleContactsDataBuilder:
 
         df_contacts = self._get_df_to_work_with()
         df_contacts = self._split_main_phones(df_contacts)
-        df_contacts['Ejecutivo'].fillna('sin ejecutivo', inplace=True)
-        df_contacts = df_contacts.melt(
-            id_vars=self.identifier_column + self.full_name_column + self.column_to_group_by
-        )
+        df_contacts = self._convert_phone_columns_into_row_values_with_phone_beside(df_contacts)
 
-        df_contacts.dropna(axis='index', inplace=True)
+        df_contacts = self._create_google_contact_name_and_lastname_columns(df_contacts)
 
-        df_contacts["Nombre"] = df_contacts["variable"] + " " + df_contacts["Mat. Unica"]
-        df_contacts.drop(['Mat. Unica', 'variable'], inplace=True, axis=1)
-
-        df_contacts = df_contacts.rename(columns={'Razon Social': 'Apellido', 'value': 'Trabajo'})
+        # only to put olumns in better order
         df_contacts = df_contacts.reindex(columns=['Nombre', 'Apellido', 'Trabajo', 'Ejecutivo'])
 
         for ejecutivo, datos in df_contacts.groupby(df_contacts[self.column_to_group_by[0]]):
@@ -56,6 +51,7 @@ class GoogleContactsDataBuilder:
     def _get_df_to_work_with(self) -> pd.DataFrame:
         df = self._get_only_required_columns_from_uploaded_data()
         df = self._rename_df_columns(df)
+        df[self.column_to_group_by].fillna(f'Sin {self.column_to_group_by}', inplace=True)
         return df
 
     def _get_only_required_columns_from_uploaded_data(self) -> pd.DataFrame:
@@ -86,6 +82,20 @@ class GoogleContactsDataBuilder:
         df = pd.concat([df, splitted_main_phones], axis=1)
         df.drop('MASI', inplace=True, axis=1)
 
+        return df
+
+    def _convert_phone_columns_into_row_values_with_phone_beside(self, df: pd.DataFrame) -> pd.DataFrame:
+        # to understand metl see: https://pandas.pydata.org/docs/user_guide/reshaping.html#reshaping-melt
+        df = df.melt(id_vars=self.identifier_column + self.full_name_column + self.column_to_group_by)
+        # delete rows with null values at any column
+        df.dropna(axis='index', inplace=True)
+        df = df.rename(columns={'variable': 'phone_type', 'value': 'Trabajo'})
+        return df
+
+    def _create_google_contact_name_and_lastname_columns(self, df: pd.DataFrame) -> pd.DataFrame:
+        df["Nombre"] = df["phone_type"] + " " + df["Mat. Unica"]
+        df.drop(['Mat. Unica', 'phone_type'], inplace=True, axis=1)
+        df = df.rename(columns={'Razon Social': 'Apellido'})
         return df
 
     def _save_results(self) -> None:
