@@ -40,7 +40,7 @@ class GoogleContactsDataBuilder:
 
         df_contacts = self._create_google_contact_name_and_lastname_columns(df_contacts)
 
-        # only to put olumns in better order
+        # only to put columns in better order
         df_contacts = df_contacts.reindex(columns=['Nombre', 'Apellido', 'Trabajo', 'Ejecutivo'])
 
         for ejecutivo, datos in df_contacts.groupby(df_contacts[self.column_to_group_by[0]]):
