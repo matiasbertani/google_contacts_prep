@@ -185,45 +185,41 @@ layout = html.Div(
 
 
 @app.callback(
-    [
-        Output('datos-planilla-bases', 'columns'),
-        Output('datos-planilla-bases', 'data'),
-        Output('drop-razonsocial-bases', 'options'),
-        Output('drop-dni-bases', 'options'),
-        Output('drop-telefono-masivo-bases', 'options'),
-        Output('drop-telefono-otros-bases', 'options'),
-        Output('drop-separador-bases', 'options'),
-    ],
+    Output('datos-planilla-bases', 'columns'),
+    Output('datos-planilla-bases', 'data'),
+    Output('drop-razonsocial-bases', 'options'),
+    Output('drop-dni-bases', 'options'),
+    Output('drop-telefono-masivo-bases', 'options'),
+    Output('drop-telefono-otros-bases', 'options'),
+    Output('drop-separador-bases', 'options'),
 
-    [Input('update-planilla-bases', 'contents')],
-    [
-        State('update-planilla-bases', 'filename'),
-        State('update-planilla-bases', 'last_modified')
-    ])
-def Cargar_Planilla_Bases(content, name, date):
-    """Carga planilla en variable de manera temporal"""
+    Input('update-planilla-bases', 'contents'),
+
+    State('update-planilla-bases', 'filename'),
+)
+def upload_datasheet_for_preparation(content, name):
     global df_base
-    if content is not None:
-        content_type, content_string = content.split(',')
-        decoded = base64.b64decode(content_string)
-        try:
-            if 'csv' in name:
-                df = pd.read_csv(io.BytesIO(decoded), encoding='latin_1', sep=';', dtype=str)
 
-            elif 'xls' in name:
-                # Assume that the user uploaded an excel file
-                df = pd.read_excel(io.BytesIO(decoded))
-            df_base = df.copy()
-        except Exception as e:
-            print(e)
-        opciones_drop = [{'label': str(i), 'value': str(i)} for i in df_base.columns.dropna().unique()]
-        col_tabla = [{'name': i, 'id': i} for i in df.columns]
-        data_tabla = df_base.to_dict('records')
-
-        return col_tabla, data_tabla, opciones_drop, opciones_drop, opciones_drop, opciones_drop, opciones_drop
-
-    else:
+    if content is None:
         raise PreventUpdate
+
+    _, content_string = content.split(',')
+    decoded = base64.b64decode(content_string)
+    try:
+        if 'csv' in name:
+            df = pd.read_csv(io.BytesIO(decoded), encoding='latin_1', sep=';', dtype=str)
+
+        elif 'xls' in name:
+            # Assume that the user uploaded an excel file
+            df = pd.read_excel(io.BytesIO(decoded))
+        df_base = df.copy()
+    except Exception as e:
+        print(e)
+    opciones_drop = [{'label': str(i), 'value': str(i)} for i in df_base.columns.dropna().unique()]
+    col_tabla = [{'name': i, 'id': i} for i in df.columns]
+    data_tabla = df_base.to_dict('records')
+
+    return col_tabla, data_tabla, opciones_drop, opciones_drop, opciones_drop, opciones_drop, opciones_drop
 
 
 @app.callback(
