@@ -1,7 +1,5 @@
 from pathlib import Path
-
-import os
-import traceback
+import io
 import zipfile
 
 import pandas as pd
@@ -45,8 +43,6 @@ class GoogleContactsDataBuilder:
 
         for ejecutivo, datos in df_contacts.groupby(df_contacts[self.column_to_group_by[0]]):
             self.results_dict[ejecutivo] = datos[['Nombre', 'Apellido', 'Trabajo']].copy()
-
-        self._save_results()
 
     def _get_df_to_work_with(self) -> pd.DataFrame:
         df = self._get_only_required_columns_from_uploaded_data()
@@ -98,29 +94,15 @@ class GoogleContactsDataBuilder:
         df = df.rename(columns={'Razon Social': 'Apellido'})
         return df
 
-    def _save_results(self) -> None:
-        if not os.path.isdir(self.results_path):
-            os.mkdir(self.results_path)
+    def get_results_as_zip_file(self) -> bytes:
+        zip_buffer = io.BytesIO()
 
-        self._clean_result_dir()
-        self._write_results()
+        with zipfile.ZipFile(zip_buffer, 'a', zipfile.ZIP_DEFLATED, False) as zip_file:
+            for filename, df in self.results_dict.items():
+                df_buffer = io.BytesIO()
+                df.to_csv(df_buffer, index=False)
+                df_buffer.seek(0)
+                zip_file.writestr(f'{filename}.csv', df_buffer.read())
 
-    def _clean_result_dir(self) -> None:
-        try:
-            for file in os.listdir(self.results_path):
-                os.remove(self.results_path / file)
-        except Exception:
-            print(traceback.format_exc())
-
-    def _write_results(self) -> None:
-
-        try:
-            with zipfile.ZipFile('Bases Google.zip', 'w') as csv_zip:
-                for ejec, data in self.results_dict.items():
-                    csv_zip.writestr(
-                        self.results_path / f"{ejec}.csv",
-                        pd.DataFrame(data).to_csv(sep=';', encoding='ANSI', index=False),
-                    )
-
-        except Exception:
-            print(traceback.format_exc())
+        zip_buffer.seek(0)
+        return zip_buffer.getvalue()

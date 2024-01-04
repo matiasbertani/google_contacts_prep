@@ -1,17 +1,19 @@
-
 import base64
 import io
-import time
 
-from dash import dcc, html
 from dash import dash_table as dt
+from dash import (
+    Input,
+    Output,
+    State,
+    dcc,
+    html,
+)
 from dash.exceptions import PreventUpdate
 import dash_bootstrap_components as dbc
-from dash.dependencies import Input, Output, State
-
 import pandas as pd
+
 from backend.google_contacts_data_builder import GoogleContactsDataBuilder
-from flask import send_file
 from frontend.app import app
 
 df_base = None
@@ -38,7 +40,7 @@ card_planilla_bases = dbc.Card(
                     dbc.Col(
                         dcc.Upload(
                             dbc.Button(
-                                "SUBIR PLANILLA",
+                                "Cargar csv",
                                 id='boton-subir-planilla-base',
                                 color="primary",
                                 className="m-1",
@@ -62,18 +64,53 @@ card_planilla_bases = dbc.Card(
         ),
     ],
     color='transparent',
-    className='w-100'
-    # style={"width": "1rem"},
+    className='w-100',
+)
+
+
+download_button = html.Div([
+    dbc.Button(
+        "Descargar",
+        id="download-google-bases-button",
+        className="ms-auto",
+        color='success',
+        n_clicks=0,
+    ),
+    dcc.Download(id="download-google-bases")
+])
+
+
+download_modal = html.Div(
+    [
+        dbc.Modal(
+            [
+                dbc.ModalHeader(dbc.ModalTitle("Area de descarga"), close_button=True),
+                dbc.ModalBody([
+                    '',
+                    html.Br(),
+                    download_button,
+                ]
+                ),
+                dbc.ModalFooter(
+                    dbc.Button(
+                        "Cerrar",
+                        id="close-backdrop",
+                        className="ms-auto",
+                        n_clicks=0,
+                    )
+                ),
+            ],
+            id="modal-download",
+            is_open=False,
+            backdrop='static',
+        ),
+    ]
 )
 
 layout = html.Div(
 
-    # input group que te deje  :
-    # 1- Subir la planillay verla en un recuadro
-    # 2- Elegir en un dropdown la col de nombre, dni
-    # 3-  elegir la columna de masivo
-    # 4- elegir la columnna o columnas de otros telefono
     [
+            download_modal,
             card_planilla_bases,
             dbc.InputGroup(
                 [
@@ -141,91 +178,86 @@ layout = html.Div(
                 className="mb-3",
             ),
 
-            dbc.Button("ARMAR BASES", id='boton-armar-bases', color="danger", className="m-1"),
-            dbc.Spinner(html.Div(id="loading-armar-bases")),
-
-            html.A(
-                'Download Zip',
-                id='download-zip',
-                download="Bases Google.zip",
-                href="",
-                target="_blank",
-                n_clicks=0,
-                hidden='hidden'
-            )
+            dbc.Button("Preparar Bases", id='boton-armar-bases', color="danger", className="m-1"),
 
     ]
 )
 
 
 @app.callback(
-    [
-        Output('datos-planilla-bases', 'columns'),
-        Output('datos-planilla-bases', 'data'),
-        Output('drop-razonsocial-bases', 'options'),
-        Output('drop-dni-bases', 'options'),
-        Output('drop-telefono-masivo-bases', 'options'),
-        Output('drop-telefono-otros-bases', 'options'),
-        Output('drop-separador-bases', 'options'),
+    Output('datos-planilla-bases', 'columns'),
+    Output('datos-planilla-bases', 'data'),
+    Output('drop-razonsocial-bases', 'options'),
+    Output('drop-dni-bases', 'options'),
+    Output('drop-telefono-masivo-bases', 'options'),
+    Output('drop-telefono-otros-bases', 'options'),
+    Output('drop-separador-bases', 'options'),
 
-    ],
+    Input('update-planilla-bases', 'contents'),
 
-    [Input('update-planilla-bases', 'contents')],
-    [
-        State('update-planilla-bases', 'filename'),
-        State('update-planilla-bases', 'last_modified')
-    ])
-def Cargar_Planilla_Bases(content, name, date):
-    """Carga planilla en variable de manera temporal"""
+    State('update-planilla-bases', 'filename'),
+)
+def upload_datasheet_for_preparation(content, name):
     global df_base
-    if content is not None:
-        content_type, content_string = content.split(',')
-        decoded = base64.b64decode(content_string)
-        try:
-            if 'csv' in name:
-                df = pd.read_csv(io.BytesIO(decoded), encoding='latin_1', sep=';', dtype=str)
 
-            elif 'xls' in name:
-                # Assume that the user uploaded an excel file
-                df = pd.read_excel(io.BytesIO(decoded))
-            df_base = df.copy()
-        except Exception as e:
-            print(e)
-        opciones_drop = [{'label': str(i), 'value': str(i)} for i in df_base.columns.dropna().unique()]
-        col_tabla = [{'name': i, 'id': i} for i in df.columns]
-        data_tabla = df_base.to_dict('records')
-
-        return col_tabla, data_tabla, opciones_drop, opciones_drop, opciones_drop, opciones_drop, opciones_drop
-
-    else:
+    if content is None:
         raise PreventUpdate
+
+    _, content_string = content.split(',')
+    decoded = base64.b64decode(content_string)
+    try:
+        if 'csv' in name:
+            df = pd.read_csv(io.BytesIO(decoded), encoding='latin_1', sep=';', dtype=str)
+
+        elif 'xls' in name:
+            # Assume that the user uploaded an excel file
+            df = pd.read_excel(io.BytesIO(decoded))
+        df_base = df.copy()
+    except Exception as e:
+        print(e)
+    opciones_drop = [{'label': str(i), 'value': str(i)} for i in df_base.columns.dropna().unique()]
+    col_tabla = [{'name': i, 'id': i} for i in df.columns]
+    data_tabla = df_base.to_dict('records')
+
+    return col_tabla, data_tabla, opciones_drop, opciones_drop, opciones_drop, opciones_drop, opciones_drop
 
 
 @app.callback(
-    [
-        Output('loading-armar-bases', 'children'),
-        Output('download-zip', 'hidden')
-    ],
-    [
-        Input('boton-armar-bases', 'n_clicks')
-    ],
+    Output("modal-download", "is_open"),
+    Input("boton-armar-bases", "n_clicks"),
+    Input("close-backdrop", "n_clicks"),
+    State("modal-download", "is_open"),
+)
+def toggle_modal(click_build: int, click_close: int, is_open: bool):
+    if click_build or click_close:
+        return not is_open
+    return is_open
 
-    [
-        State('drop-razonsocial-bases', 'value'),
-        State('drop-dni-bases', 'value'),
-        State('drop-telefono-masivo-bases', 'value'),
-        State('drop-telefono-otros-bases', 'value'),
-        State('drop-separador-bases', 'value'),
-    ])
-def Boton_Armar_Planilla(n_clicks, razon_social, dni, tel_masivos, tel_otros, separador):
-    """Guarda la planilla en el EJECUTIVO (Navegador) selecionado"""
+
+@app.callback(
+    Output("download-google-bases", "data"),
+
+    Input('download-google-bases-button', 'n_clicks'),
+
+    State('drop-razonsocial-bases', 'value'),
+    State('drop-dni-bases', 'value'),
+    State('drop-telefono-masivo-bases', 'value'),
+    State('drop-telefono-otros-bases', 'value'),
+    State('drop-separador-bases', 'value'),
+)
+def build_and_download_datasheet_for_google_contacts(
+    click_build_and_download,
+    razon_social,
+    dni,
+    tel_masivos,
+    tel_otros,
+    separador,
+):
     global df_base
     if (
-        n_clicks and razon_social is not None and dni is not None and tel_masivos is not None and
+        click_build_and_download and razon_social is not None and dni is not None and tel_masivos is not None and
         tel_otros is not None and separador is not None and df_base is not None
     ):
-
-        time.sleep(1)
 
         builder = GoogleContactsDataBuilder(
             df_base,
@@ -233,26 +265,10 @@ def Boton_Armar_Planilla(n_clicks, razon_social, dni, tel_masivos, tel_otros, se
             [razon_social],
             tel_masivos,
             tel_otros,
-            [separador]
+            [separador],
         )
         builder.build_datasheet()
-        return "Variables Cargadas con exito", False
+        zip_file = builder.get_results_as_zip_file()
+        return dcc.send_bytes(zip_file, "bases google.zip")
 
     raise PreventUpdate
-
-
-@app.callback(
-    Output('download-zip', 'href'),
-    [Input('download-zip', 'n_clicks')])
-def generate_report_url(n_clicks):
-    return '/resultados temporales/'
-
-
-@app.server.route('/resultados temporales/')
-def generate_report_url_2():
-    return send_file(
-        './resultados temporales/Bases Google.zip',
-        attachment_filename='Bases Google.zip',
-        as_attachment=True,
-        cache_timeout=0
-    )
