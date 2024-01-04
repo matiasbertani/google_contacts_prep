@@ -235,18 +235,24 @@ def toggle_modal(click_build: int, click_close: int, is_open: bool):
 
 
 @app.callback(
-        Output("download-google-bases", "data"),
+    Output("download-google-bases", "data"),
 
-        Input('download-google-bases-button', 'n_clicks'),
+    Input('download-google-bases-button', 'n_clicks'),
 
-        State('drop-razonsocial-bases', 'value'),
-        State('drop-dni-bases', 'value'),
-        State('drop-telefono-masivo-bases', 'value'),
-        State('drop-telefono-otros-bases', 'value'),
-        State('drop-separador-bases', 'value'),
+    State('drop-razonsocial-bases', 'value'),
+    State('drop-dni-bases', 'value'),
+    State('drop-telefono-masivo-bases', 'value'),
+    State('drop-telefono-otros-bases', 'value'),
+    State('drop-separador-bases', 'value'),
 )
-def Boton_Armar_Planilla(click_build_and_download, razon_social, dni, tel_masivos, tel_otros, separador):
-    """Guarda la planilla en el EJECUTIVO (Navegador) selecionado"""
+def build_and_download_datasheet_for_google_contacts(
+    click_build_and_download,
+    razon_social,
+    dni,
+    tel_masivos,
+    tel_otros,
+    separador,
+):
     global df_base
     if (
         click_build_and_download and razon_social is not None and dni is not None and tel_masivos is not None and
