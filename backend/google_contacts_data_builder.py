@@ -1,3 +1,4 @@
+import base64
 from pathlib import Path
 import io
 import zipfile
@@ -9,7 +10,7 @@ class GoogleContactsDataBuilder:
 
     def __init__(
         self,
-        uploaded_datesheet: pd.DataFrame,
+        uploaded_datesheet_content: pd.DataFrame,
         identifier_column: list,
         full_name_column: list,
         main_phones_columns: list,
@@ -18,7 +19,10 @@ class GoogleContactsDataBuilder:
         main_phones_separator: str = '-',
     ) -> None:
 
-        self.uploaded_datesheet = uploaded_datesheet
+        _, content_string = uploaded_datesheet_content.split(',')
+        decoded = base64.b64decode(content_string)
+
+        self.uploaded_datesheet = pd.read_csv(io.BytesIO(decoded), encoding='latin_1', sep=';', dtype=str)
 
         self.identifier_column = identifier_column
         self.full_name_column = full_name_column
