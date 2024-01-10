@@ -255,8 +255,13 @@ def build_and_download_datasheet_for_google_contacts(
 ):
     global df_base
     if (
-        click_build_and_download and razon_social is not None and dni is not None and tel_masivos is not None and
-        tel_otros is not None and separador is not None and df_base is not None
+        click_build_and_download
+        and razon_social is not None
+        and dni is not None
+        and tel_masivos is not None
+        and tel_otros is not None
+        and separador is not None
+        and df_base is not None
     ):
 
         builder = GoogleContactsDataBuilder(
