@@ -65,7 +65,7 @@ card_planilla_bases = dbc.Card(
         ),
     ],
     color='transparent',
-    className='formulario',
+    className='formulario-de-arriba',
 )
 
 
@@ -109,88 +109,92 @@ download_modal = html.Div(
 )
 
 layout = html.Div(
-
     [
-            dcc.Store(
-                id='upload-datasheet-store',
-                clear_data=False,
-                storage_type='memory',
-                data={},
-            ),
-            download_modal,
-            card_planilla_bases,
-            dbc.InputGroup(
-                [
-                     dbc.InputGroupText("RAZON SOCIAL", className="razon-social") ,
+        html.Div(
+            [
+                dcc.Store(
+                    id='upload-datasheet-store',
+                    clear_data=False,
+                    storage_type='memory',
+                    data={},
+                ),
+                download_modal,
+                card_planilla_bases,
+                dbc.InputGroup(
+                    [
+                        dbc.InputGroupText("RAZON SOCIAL", className="razon-social") ,
 
-                    dcc.Dropdown(
-                            id='drop-razonsocial-bases',
-                            options=[],
-                            # style={'width': '200px'},
-                            className='drop-razonsocial-bases',
-                            value='Razon Social',
-                            placeholder='Ingrese el Nombre y Apellido',
-                    ),
-                ],
-                className="razon-social-class",
-            ),
-
-            dbc.InputGroup(
-                [
-                    dbc.InputGroupText("DNI: ", className="dni"),
-                    dcc.Dropdown(
-                                id='drop-dni-bases',
+                        dcc.Dropdown(
+                                id='drop-razonsocial-bases',
                                 options=[],
-                                value='Mat. Unica',
-                                style={'width': '200px'},
-                                placeholder='Seleccione un la columna dni',
-                                className="dni-bases",
-                    ),
-                ],
-                className="dni-class",
-            ),
-            dbc.InputGroup(
-                [
-                    dcc.Dropdown(
-                        id='drop-telefono-masivo-bases',
-                        value=['Telefono_1'],
-                        multi=True,
-                        style={'width': '400px'},
-                        className='drop-down-telefono-masivo-bases'
-                    ),
-                    dbc.InputGroupText("TELEFONOS MASIVOS"),
-                ],
-                className="telefono-masivo",
-            ),
-            dbc.InputGroup(
-                [
-                    dcc.Dropdown(
-                        id='drop-telefono-otros-bases',
-                        multi=True,
-                        value=[f'Telefono_{i}' for i in range(2, 10)],
-                        # style={'width': '400px'}
-                        className='drop-down-telefono-otros-bases',
+                                # style={'width': '200px'},
+                                className='drop-razonsocial-bases',
+                                value='Razon Social',
+                                placeholder='Ingrese el Nombre y Apellido',
                         ),
-                    dbc.InputGroupText("OTROS TELEFONOS"),
-                ],
-                className="drop-down-telefono-class",
-            ),
-            dbc.InputGroup(
-                [
-                    dbc.InputGroupText("SEPARAR POR: "),
-                    dcc.Dropdown(
-                        id='drop-separador-bases',
-                        options=[],
-                        value='Ejecutivo',
-                        placeholder='Separador',
-                        style={'width': '200px'}
-                    ),
-                ],
-                className="mb-3",
-            ),
+                    ],
+                    className="razon-social-class",
+                ),
 
-            dbc.Button("Preparar Bases", id='boton-armar-bases', color="danger", className="m-1"),
+                dbc.InputGroup(
+                    [
+                        dbc.InputGroupText("DNI: ", className="dni"),
+                        dcc.Dropdown(
+                                    id='drop-dni-bases',
+                                    options=[],
+                                    value='Mat. Unica',
+                                    style={'width': '200px'},
+                                    placeholder='Seleccione un la columna dni',
+                                    className="dni-bases",
+                        ),
+                    ],
+                    className="dni-class",
+                ),
+                dbc.InputGroup(
+                    [
+                        dcc.Dropdown(
+                            id='drop-telefono-masivo-bases',
+                            value=['Telefono_1'],
+                            multi=True,
+                            style={'width': '400px'},
+                            className='telefono-masivo-bases'
+                        ),
+                        dbc.InputGroupText("TELEFONOS MASIVOS", className="telefono-masivo"),
+                    ],
+                    className="telefono-masivo-class",
+                ),
+                dbc.InputGroup(
+                    [
+                        dcc.Dropdown(
+                            id='drop-telefono-otros-bases',
+                            multi=True,
+                            value=[f'Telefono_{i}' for i in range(2, 10)],
+                            # style={'width': '400px'}
+                            className='telefono-otros-bases',
+                            ),
+                        dbc.InputGroupText("OTROS TELEFONOS", className="telefono-otros"),
+                    ],
+                    className="telefono-otros-class",
+                ),
+                dbc.InputGroup(
+                    [
+                        dbc.InputGroupText("SEPARAR POR: ", className="separador"),
+                        dcc.Dropdown(
+                            id='drop-separador-bases',
+                            options=[],
+                            value='Ejecutivo',
+                            placeholder='Separador',
+                            # style={'width': '200px'}
+                            className='separador-bases',
+                        ),
+                    ],
+                    className="separador-class",
+                ),
 
+                dbc.Button("Preparar Bases", id='boton-armar-bases', color="success", className="btn-form"),
+            ],
+            className="formulario-container"  # Clase CSS para el contenedor del formulario
+        )
     ]
 )
 
