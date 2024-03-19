@@ -1,0 +1,80 @@
+@import url('./normalize.css');
+
+/* Estilos para el formulario */
+
+.text-center {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  color: black;
+}
+.formulario{
+  width: 900px;
+  height: 110px;
+  justify-content: center;
+  position: relative;
+  left: 20%;
+  overflow-x: scroll;
+  overflow-y: scroll;
+}
+input-group-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Alinea los elementos en los extremos */
+}
+/* Razón Social */
+.razon-social{
+  position: relative;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(10, 4, 35);
+  left: 30%;
+
+}
+.drop-razonsocial-bases{
+  position: relative;
+  left: 170%;
+  width: 250px;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+
+}
+.razon-social-class{
+  gap: 10px;
+  margin: 10px auto;
+}
+
+/* DNI */
+.dni{
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(10, 4, 35);
+  width: 150px;
+  position: relative;
+  left: 30%;
+}
+.dni-bases{
+  left: 215%;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  width: 260px;
+}
+.dni-class{
+  gap: 10px;
+  margin: 10px auto;
+}
+
+/* teléfono */
+.drop-down-telefono-class{
+  gap: 10px;
+  margin: 10px auto;
+}
+.drop-down-telefono-masivo-bases{
+  left: 155%;
+  font-size: 1rem;
+  font-family:'Roboto', sans-serif;
+  color: black;
+}
