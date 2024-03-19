@@ -80,7 +80,6 @@ download_button = html.Div([
     dcc.Download(id="download-google-bases")
 ])
 
-
 download_modal = html.Div(
     [
         dbc.Modal(

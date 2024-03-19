@@ -10,6 +10,7 @@
   color: black;
   position: relative;
   margin-top: 40px;
+
 }
 .formulario-container {
   border: 2px solid #ccc; /* Ancho y color del borde */
@@ -210,3 +211,5 @@ input-group-container {
   margin: 10px auto;
   border-radius: 5px;
 }
+
+
