@@ -1,0 +1,212 @@
+@import url('./normalize.css');
+
+
+/* Estilos para el formulario */
+
+.text-center {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2.6rem;
+  color: black;
+  position: relative;
+  margin-top: 40px;
+}
+.formulario-container {
+  border: 2px solid #ccc; /* Ancho y color del borde */
+  padding: 20px; /* Espacio interno del formulario */
+  border-radius: 10px; /* Bordes redondeados */
+  width: 900px; /* Ancho del formulario */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto; /* Centra el formulario */
+  background-color: rgba(255, 255, 255, 0.897); /* Color de fondo */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+  margin-top: 50px; /* Margen superior */
+  margin-bottom: 50px; /* Margen inferior */
+  position: relative;
+
+}
+.formulario-de-arriba{
+  width: 700px;
+  left: 3%;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  position: relative;
+
+
+}
+input-group-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Alinea los elementos en los extremos */
+}
+/* Razón Social */
+.razon-social{
+  position: relative;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(10, 4, 35);
+  left: 12%;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 5px;
+
+}
+.drop-razonsocial-bases{
+  position: relative;
+  margin-top: 5px;
+    width: 410px;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  left: 37%;
+
+}
+.razon-social-class{
+
+  margin: 10px auto;
+}
+
+/* DNI */
+.dni{
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(10, 4, 35);
+  width: 250px;
+  position: relative;
+  left: 12%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.dni-bases{
+  position: relative;
+  width: 400px;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  left: 70%;
+
+}
+.dni-class{
+  gap: 10px;
+  margin: 10px auto;
+
+}
+
+/* teléfono */
+.telefono-masivo{
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(10, 4, 35);
+  width: 249px;
+  position: absolute;
+  left: 12%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.telefono-masivo-bases{
+  position: relative;
+  left: 100%;
+  width: 492px;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+}
+.telefono-masivo-class{
+  gap: 10px;
+  margin: 10px auto;
+
+}
+ /* Teléfono otros */
+.telefono-otros{
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(10, 4, 35);
+  width: 250px;
+  position: absolute;
+  left: 12%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.telefono-otros-bases{
+  position: relative;
+  left: 101%;
+  width: 397px;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.telefono-otros-class{
+  gap: 10px;
+  margin: 10px auto;
+
+}
+
+/* Separador */
+.separador {
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(10, 4, 35);
+  width: 250px;
+  position: absolute;
+  left: 12%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.separador-bases{
+  position: relative;
+  left: 100%;
+  width: 400px;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.separador-class{
+  gap: 10px;
+  margin: 10px auto;
+
+}
+.btn-form{
+  width: 200px;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  border-radius: 5px;
+}
+.button-csv{
+  width: 150px;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  border-radius: 5px;
+}
