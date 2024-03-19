@@ -78,3 +78,11 @@ input-group-container {
   font-family:'Roboto', sans-serif;
   color: black;
 }
+.drop-down-telefono-otros-bases{
+  position: absolute;
+  left: 44%;
+  font-size: 1rem;
+  font-family:'Roboto', sans-serif;
+  color: black;
+  width: 200px;
+}
