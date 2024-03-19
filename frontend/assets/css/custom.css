@@ -6,14 +6,15 @@
 .text-center {
   text-align: center;
   font-family: 'Roboto', sans-serif;
-  font-size: 1.8rem;
+  font-size: 2.6rem;
   color: black;
   position: relative;
+  margin-top: 40px;
 }
 .formulario-container {
   border: 2px solid #ccc; /* Ancho y color del borde */
   padding: 20px; /* Espacio interno del formulario */
-  border-radius: 40px; /* Bordes redondeados */
+  border-radius: 10px; /* Bordes redondeados */
   width: 900px; /* Ancho del formulario */
   display: flex;
   flex-direction: column;
@@ -48,21 +49,26 @@ input-group-container {
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: rgb(10, 4, 35);
-  left: 30%;
-  width: 150px;
+  left: 12%;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 5px;
 
 }
 .drop-razonsocial-bases{
   position: relative;
-  left: 110%;
-  width: 250px;
+  margin-top: 5px;
+    width: 410px;
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: black;
+  left: 37%;
 
 }
 .razon-social-class{
-  gap: 10px;
+
   margin: 10px auto;
 }
 
@@ -71,9 +77,9 @@ input-group-container {
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: rgb(10, 4, 35);
-  width: 150px;
+  width: 250px;
   position: relative;
-  left: 30%;
+  left: 12%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -81,15 +87,12 @@ input-group-container {
 }
 .dni-bases{
   position: relative;
-  left: 127%;
-  width: 250px;
+  width: 400px;
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  left: 70%;
+
 }
 .dni-class{
   gap: 10px;
@@ -102,21 +105,21 @@ input-group-container {
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: rgb(10, 4, 35);
-  width: 200px;
+  width: 249px;
   position: absolute;
-  left: 30%;
-}
-.telefono-masivo-bases{
-  position: relative;
-  left: 135%;
-  width: 250px;
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  color: black;
+  left: 12%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.telefono-masivo-bases{
+  position: relative;
+  left: 100%;
+  width: 492px;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: black;
 }
 .telefono-masivo-class{
   gap: 10px;
@@ -128,14 +131,18 @@ input-group-container {
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: rgb(10, 4, 35);
-  width: 200px;
+  width: 250px;
   position: absolute;
-  left: 30%;
+  left: 12%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .telefono-otros-bases{
   position: relative;
-  left: 195%;
-  width: 250px;
+  left: 101%;
+  width: 397px;
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: black;
@@ -155,15 +162,19 @@ input-group-container {
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: rgb(10, 4, 35);
-  width: 200px;
+  width: 250px;
   position: absolute;
-  left: 30%;
+  left: 12%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .separador-bases{
   position: relative;
-  left: 195%;
-  width: 250px;
+  left: 100%;
+  width: 400px;
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: black;
@@ -186,6 +197,7 @@ input-group-container {
   justify-content: center;
   align-items: center;
   margin: 10px auto;
+  border-radius: 5px;
 }
 .button-csv{
   width: 150px;
@@ -196,4 +208,5 @@ input-group-container {
   justify-content: center;
   align-items: center;
   margin: 10px auto;
+  border-radius: 5px;
 }
