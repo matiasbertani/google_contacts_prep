@@ -58,7 +58,7 @@ card_planilla_bases = dbc.Card(
                         # 'width': '60',
                         # 'overflowX': 'scroll',
                         # 'maxHeight': '250px',
-                        'overflowY': 'scroll'
+                        # 'overflowY': 'scroll'
                     },
                 ),
             ]
@@ -160,7 +160,7 @@ layout = html.Div(
                     ),
                     dbc.InputGroupText("TELEFONOS MASIVOS"),
                 ],
-                className="mb-3",
+                className="telefono-masivo",
             ),
             dbc.InputGroup(
                 [
@@ -169,7 +169,7 @@ layout = html.Div(
                         multi=True,
                         value=[f'Telefono_{i}' for i in range(2, 10)],
                         # style={'width': '400px'}
-                        className='drop-down-telefono-masivo',
+                        className='drop-down-telefono-otros-bases',
                         ),
                     dbc.InputGroupText("OTROS TELEFONOS"),
                 ],
