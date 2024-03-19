@@ -1,5 +1,6 @@
 import base64
 import io
+import traceback
 
 from dash import dash_table as dt
 from dash import (
@@ -16,7 +17,7 @@ import pandas as pd
 from backend.google_contacts_data_builder import GoogleContactsDataBuilder
 from frontend.app import app
 
-df_base = None
+
 card_planilla_bases = dbc.Card(
     [
         dbc.CardBody(
@@ -110,6 +111,12 @@ download_modal = html.Div(
 layout = html.Div(
 
     [
+            dcc.Store(
+                id='upload-datasheet-store',
+                clear_data=False,
+                storage_type='memory',
+                data={},
+            ),
             download_modal,
             card_planilla_bases,
             dbc.InputGroup(
@@ -185,6 +192,7 @@ layout = html.Div(
 
 
 @app.callback(
+    Output('upload-datasheet-store', 'data'),
     Output('datos-planilla-bases', 'columns'),
     Output('datos-planilla-bases', 'data'),
     Output('drop-razonsocial-bases', 'options'),
@@ -198,7 +206,6 @@ layout = html.Div(
     State('update-planilla-bases', 'filename'),
 )
 def upload_datasheet_for_preparation(content, name):
-    global df_base
 
     if content is None:
         raise PreventUpdate
@@ -209,17 +216,23 @@ def upload_datasheet_for_preparation(content, name):
         if 'csv' in name:
             df = pd.read_csv(io.BytesIO(decoded), encoding='latin_1', sep=';', dtype=str)
 
-        elif 'xls' in name:
-            # Assume that the user uploaded an excel file
-            df = pd.read_excel(io.BytesIO(decoded))
-        df_base = df.copy()
-    except Exception as e:
-        print(e)
-    opciones_drop = [{'label': str(i), 'value': str(i)} for i in df_base.columns.dropna().unique()]
-    col_tabla = [{'name': i, 'id': i} for i in df.columns]
-    data_tabla = df_base.to_dict('records')
+    except Exception:
+        traceback.print_exc()
 
-    return col_tabla, data_tabla, opciones_drop, opciones_drop, opciones_drop, opciones_drop, opciones_drop
+    opciones_drop = [{'label': str(i), 'value': str(i)} for i in df.columns.dropna().unique()]
+    col_tabla = [{'name': i, 'id': i} for i in df.columns]
+    data_tabla = df.to_dict('records')
+
+    return (
+        content,
+        col_tabla,
+        data_tabla,
+        opciones_drop,
+        opciones_drop,
+        opciones_drop,
+        opciones_drop,
+        opciones_drop
+    )
 
 
 @app.callback(
@@ -239,6 +252,7 @@ def toggle_modal(click_build: int, click_close: int, is_open: bool):
 
     Input('download-google-bases-button', 'n_clicks'),
 
+    State('upload-datasheet-store', 'data'),
     State('drop-razonsocial-bases', 'value'),
     State('drop-dni-bases', 'value'),
     State('drop-telefono-masivo-bases', 'value'),
@@ -247,20 +261,26 @@ def toggle_modal(click_build: int, click_close: int, is_open: bool):
 )
 def build_and_download_datasheet_for_google_contacts(
     click_build_and_download,
+    datasheet_content,
     razon_social,
     dni,
     tel_masivos,
     tel_otros,
     separador,
 ):
-    global df_base
+
     if (
-        click_build_and_download and razon_social is not None and dni is not None and tel_masivos is not None and
-        tel_otros is not None and separador is not None and df_base is not None
+        click_build_and_download
+        and razon_social is not None
+        and dni is not None
+        and tel_masivos is not None
+        and tel_otros is not None
+        and separador is not None
+        and datasheet_content
     ):
 
         builder = GoogleContactsDataBuilder(
-            df_base,
+            datasheet_content,
             [dni],
             [razon_social],
             tel_masivos,
