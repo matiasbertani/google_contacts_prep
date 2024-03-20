@@ -60,11 +60,11 @@ input-group-container {
 }
 .drop-razonsocial-bases{
   position: relative;
-  width: 408px;
+  width: 400px;
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: black;
-  left: 37%;
+  left: 38%;
 
 }
 .razon-social-class{
@@ -91,7 +91,7 @@ input-group-container {
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: black;
-  left: 77%;
+  left: 38%;
 }
 .dni-class{
   margin: 5px auto;
@@ -112,8 +112,8 @@ input-group-container {
 }
 .telefono-masivo-bases{
   position: relative;
-  left: 100%;
-  width: 492px;
+  right: -100%;
+  width: 400px;
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: black;
@@ -138,8 +138,8 @@ input-group-container {
 }
 .telefono-otros-bases{
   position: relative;
-  left: 101%;
-  width: 397px;
+  left: 100%;
+  width: 400px;
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: black;
