@@ -54,12 +54,7 @@ card_planilla_bases = dbc.Card(
                 ]),
                 dt.DataTable(
                     id='datos-planilla-bases',
-                    style_table={
-                        # 'width': '60',
-                        # 'overflowX': 'scroll',
-                        # 'maxHeight': '250px',
-                        # 'overflowY': 'scroll'
-                    },
+
                 ),
             ]
         ),
@@ -126,7 +121,6 @@ layout = html.Div(
                         dcc.Dropdown(
                                 id='drop-razonsocial-bases',
                                 options=[],
-                                # style={'width': '200px'},
                                 className='drop-razonsocial-bases',
                                 value='Razon Social',
                                 placeholder='Ingrese el Nombre y Apellido',
@@ -142,7 +136,6 @@ layout = html.Div(
                                     id='drop-dni-bases',
                                     options=[],
                                     value='Mat. Unica',
-                                    style={'width': '200px'},
                                     placeholder='Seleccione un la columna dni',
                                     className="dni-bases",
                         ),
@@ -155,7 +148,6 @@ layout = html.Div(
                             id='drop-telefono-masivo-bases',
                             value=['Telefono_1'],
                             multi=True,
-                            style={'width': '400px'},
                             className='telefono-masivo-bases'
                         ),
                         dbc.InputGroupText("TELEFONOS MASIVOS", className="telefono-masivo"),
@@ -168,7 +160,6 @@ layout = html.Div(
                             id='drop-telefono-otros-bases',
                             multi=True,
                             value=[f'Telefono_{i}' for i in range(2, 10)],
-                            # style={'width': '400px'}
                             className='telefono-otros-bases',
                             ),
                         dbc.InputGroupText("OTROS TELEFONOS", className="telefono-otros"),
@@ -183,7 +174,6 @@ layout = html.Div(
                             options=[],
                             value='Ejecutivo',
                             placeholder='Separador',
-                            # style={'width': '200px'}
                             className='separador-bases',
                         ),
                     ],
@@ -192,7 +182,7 @@ layout = html.Div(
 
                 dbc.Button("Preparar Bases", id='boton-armar-bases', color="success", className="btn-form"),
             ],
-            className="formulario-container"  # Clase CSS para el contenedor del formulario
+            className="formulario-container"
         )
     ]
 )

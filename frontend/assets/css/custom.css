@@ -55,13 +55,12 @@ input-group-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 5px;
+
 
 }
 .drop-razonsocial-bases{
   position: relative;
-  margin-top: 5px;
-    width: 410px;
+  width: 408px;
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: black;
@@ -92,13 +91,10 @@ input-group-container {
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: black;
-  left: 70%;
-
+  left: 77%;
 }
 .dni-class{
-  gap: 10px;
-  margin: 10px auto;
-
+  margin: 5px auto;
 }
 
 /* teléfono */
@@ -211,5 +207,3 @@ input-group-container {
   margin: 10px auto;
   border-radius: 5px;
 }
-
-
