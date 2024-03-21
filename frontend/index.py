@@ -8,3 +8,4 @@ app.layout = html.Div([
         tab_bases.layout,
     ),
 ])
+server = app.server

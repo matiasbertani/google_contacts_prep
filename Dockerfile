@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 8050
 
-CMD ["python", "main.py"]
+CMD ["gunicorn", "frontend.index:server", "-b", "0.0.0.0:8050"]

@@ -12,4 +12,3 @@ app = dash.Dash(
     assets_folder=assets_path,
 )
 app.title = 'Google Contact Preparation'
-server = app.server
