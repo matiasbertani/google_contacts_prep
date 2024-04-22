@@ -207,3 +207,17 @@ input-group-container {
   margin: 10px auto;
   border-radius: 5px;
 }
+
+.uploaded-data-sheet {
+  width: 100%;
+  min-width: 60vw;
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 250px;
+}
+
+@media (max-width: 600px) {
+  .custom-data-table {
+      min-width: 100vw;
+  }
+}

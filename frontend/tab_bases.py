@@ -52,10 +52,12 @@ card_planilla_bases = dbc.Card(
                         width=4,
                     ),
                 ]),
-                dt.DataTable(
-                    id='datos-planilla-bases',
-
-                ),
+                dbc.Row(
+                    dt.DataTable(
+                        id='datos-planilla-bases',
+                    ),
+                    class_name='uploaded-data-sheet'
+                )
             ]
         ),
     ],
