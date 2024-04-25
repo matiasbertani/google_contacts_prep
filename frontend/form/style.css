@@ -3,30 +3,73 @@
   padding: 0;
   box-sizing: border-box;
 }
-/* body {
-  background-color: #1f4462;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+body {
+  background-color: #FFFFFF;
+  font-family: 'Roboto', sans-serif;
   height: 100vh;
 }
-.form{
-  background-color: #f3f6f6;
+.left{
+  float: left;
+  height: 100vh;
   width: 50%;
-  margin-right: 25px;
-  border-radius: 5px;
-  margin-top: 50px;
-  height: 68vh;
-  padding: 10px;
+  background-color: #FFFFFF;
+}
+.geometric{
+  height: 100vh;
+  width: 50%;
+  background-color: #FFFFFF;
+}
+.square{
+  display: flex;
+  justify-content:left;
+  width: 120px;
+  height: 120px;
+}
+.square img{
+  position: relative;
+  top: -20px;
+  left: -20px;
+}
+.hexagon{
+  position: relative;
+  right: -20px;
+  bottom: -70%;
+}
+.circle{
+  position: relative;
+  right: -90%;
+  bottom: -30%;
+}
+.triangle{
+  position: relative;
+  right: -50%;
+  bottom: 50%;
 }
 .title{
   display: flex;
-  justify-content:flex-start;
-  font-weight: 400;
-  color: #1F4462;
-  margin: 0 0 20px 10px;
-  letter-spacing: 1px;
+  position: relative;
+  top: 50%;
 }
+.h1{
+  font-size: 2rem;
+  z-index: 1;
+  margin: 0 25px;
+}
+.right{
+  float: right;
+  height: 100vh;
+  width: 50%;
+  background-color: #ffffff;
+/*   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ */}
+.form-container{
+  background-color: #ffffff;
+  width: 90%;
+  margin-right: 5px;
+  margin-top: 10%;
+  padding: 10px;
+}
+
 label{
   margin: 0 5px;
   font-size: 1rem;
@@ -42,19 +85,19 @@ label{
   padding: 8px;
   margin-top: 5px;
   margin-bottom: 10px;
-  border: 1px solid #1c87c9;
+  border: 1px solid #090909;
   outline: none;
   }
   input::placeholder {
   color: #666;
   }
   button {
-    position: relative;
+  position: relative;
   left: 48px;
   width: 90%;
   padding: 10px;
   border: none;
-  background: #1F4462;
+  background: #4582EC;
   font-size: 16px;
   font-weight: 400;
   color: #fff;
@@ -66,28 +109,25 @@ label{
   width: 30%;
   padding: 10px;
   border: none;
-  background: #1F4462;
+  background: #4582EC;
   font-size: 16px;
   font-weight: 400;
   color: #fff;
   margin: 20px 0 20px 10px;
 }
 .btn-csv:hover{
-  background: #4582EC;
-}
- */
-.izquierda{
-  display: flex;
-  justify-content: flex-start;
-  margin: 0 0 20px 10px;
-}
-.izquierda img{
-  width: 150px;
-  float: left;
-}
+  background: #0b6622;
 
-.derecha{
-  float: right;
-  display: flex;
-  justify-content: flex-start;
+}
+.btn-bases{
+  width: 41%;
+  padding: 10px;
+  border: none;
+  background: #4582EC;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  margin-top: 40px;
+  position: absolute;
+  left: 52%;
 }
