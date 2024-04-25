@@ -1,0 +1,93 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* body {
+  background-color: #1f4462;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.form{
+  background-color: #f3f6f6;
+  width: 50%;
+  margin-right: 25px;
+  border-radius: 5px;
+  margin-top: 50px;
+  height: 68vh;
+  padding: 10px;
+}
+.title{
+  display: flex;
+  justify-content:flex-start;
+  font-weight: 400;
+  color: #1F4462;
+  margin: 0 0 20px 10px;
+  letter-spacing: 1px;
+}
+label{
+  margin: 0 5px;
+  font-size: 1rem;
+}
+  p {
+  margin: 0 0 5px;
+  }
+  input, textarea,
+  select {
+  position: relative;
+  left: 8px;
+  width: calc(100% - 18px);
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #1c87c9;
+  outline: none;
+  }
+  input::placeholder {
+  color: #666;
+  }
+  button {
+    position: relative;
+  left: 48px;
+  width: 90%;
+  padding: 10px;
+  border: none;
+  background: #1F4462;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  }
+ .btn-bases:hover {
+  background: #0b6622;
+  }
+.btn-csv{
+  width: 30%;
+  padding: 10px;
+  border: none;
+  background: #1F4462;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  margin: 20px 0 20px 10px;
+}
+.btn-csv:hover{
+  background: #4582EC;
+}
+ */
+.izquierda{
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 0 20px 10px;
+}
+.izquierda img{
+  width: 150px;
+  float: left;
+}
+
+.derecha{
+  float: right;
+  display: flex;
+  justify-content: flex-start;
+}
