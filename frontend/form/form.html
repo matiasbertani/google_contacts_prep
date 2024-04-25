@@ -5,43 +5,92 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Google Contact Preparation</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <!-- Tailwind CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
 </head>
 <body>
-  <section class="form">
-    <div class="logo">
-      <i class="fa-regular fa-envelope" style="color: #ffffff;"></i>
-    </div>
+  <section class="left">
     <div class="title">
-      <h1>Google Contact Preparation</h1>
+      <h1 class="h1">Google Contact Preparation</h1>
     </div>
-    <form action="/">
-      <div class="info">
-        <label for="ftitle">Cargar csv</label><br>
-        <textarea rows="4"></textarea>
-      <button type="submit" href="/" class="btn-csv">Cargar Csv</button>
-      <br>
-      <label for="frazonsocial">Razón Social </label><br>
-      <select name="razonsocial" id="">
-        <option value="Empresa A">Responsable Inscripto</option>
-        <option value="Empresa B">Monotributista</option>
-        <option value="Empresa C">Otro</option>
-        <option value="Otra">Otra</option>
-      </select>
-      <input type="text" name="name">
-      <label for="ftitle">DNI</label><br>
-      <input type="text" name="name" >
-      <label for="ftitle">Teléfonos masivos</label><br>
-      <input type="text" name="name">
-      <label for="ftitle">Otros teléfonos</label><br>
-      <input type="text" name="name">
-      <label for="ftitle">Separar por</label><br>
-      <input type="text" name="name">
+    <div class="geometric">
+      <div class="square">
+        <img src="/frontend/form/images/cuadrado.png" alt="">
       </div>
-      <button type="submit" href="/" class="btn-bases">Preparar bases</button>
+      <div class="hexagon">
+        <img src="/frontend/form/images/contorno-de-forma-geometrica-hexagonal.png" alt="">
+      </div>
+      <div class="circle">
+        <img src="/frontend/form/images/lavado-en-seco (1).png" alt="">
+      </div>
+      <div class="triangle">
+        <img src="/frontend/form/images/variante-de-contorno-de-triangulo.png" alt="">
+      </div>
+    </div>
+  </section>
+  <section class="right">
+    <div class="form-container">
+      <form action="/" method="POST">
+        <!-- Campo de texto multilínea para información -->
+        <div class="info">
+          <label for="info">Información:</label><br>
+          <textarea id="info" name="info" rows="4"></textarea>
+        </div>
+
+        <!-- Botón para cargar archivo CSV -->
+        <button type="button" class="btn-csv">Cargar CSV</button>
+
+        <!-- Selector de razón social -->
+        <br>
+        <label for="frazonsocial">Razón Social:</label><br>
+        <select name="razonsocial" id="frazonsocial">
+          <option value="Empresa A">Responsable Inscripto</option>
+          <option value="Empresa B">Monotributista</option>
+          <option value="Empresa C">Otro</option>
+          <option value="Otra">Otra</option>
+        </select>
+
+        <!-- Campo de texto para nombre -->
+        <br>
+        <label for="name">Nombre:</label><br>
+        <input type="text" id="name" name="name">
+
+        <!-- Campo de texto para DNI -->
+        <br>
+        <label for="dni">DNI:</label><br>
+        <input type="text" id="dni" name="dni">
+
+        <!-- Selector de teléfonos masivos -->
+        <br>
+        <label for="telmasivos">Teléfonos masivos:</label><br>
+        <select name="telmasivos" id="telmasivos">
+          <option value="1">TEL 1</option>
+          <option value="2">TEL 2</option>
+          <option value="3">Otra</option>
+        </select>
+
+        <!-- Campo de texto para otros teléfonos -->
+        <br>
+        <label for="otros">Otros teléfonos:</label><br>
+        <select name="otros" id="otros">
+          <option value="1">TEL 1</option>
+          <option value="2">TEL 2</option>
+          <option value="3">Otra</option>
+        </select>
+
+        <!-- Campo de texto para separación -->
+        <br>
+        <label for="separar">Separar por:</label><br>
+        <input type="text" id="separar" name="separar">
+
+        <!-- Botón para preparar bases -->
+        <button type="submit" class="btn-bases">Preparar Bases</button>
       </form>
-      </div>
+    </div>
   </section>
 
-</body>
+  </body>
 </html>
