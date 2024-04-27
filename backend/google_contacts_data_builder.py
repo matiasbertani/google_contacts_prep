@@ -104,7 +104,7 @@ class GoogleContactsDataBuilder:
         with zipfile.ZipFile(zip_buffer, 'a', zipfile.ZIP_DEFLATED, False) as zip_file:
             for filename, df in self.results_dict.items():
                 df_buffer = io.BytesIO()
-                df.to_csv(df_buffer, index=False)
+                df.to_csv(df_buffer, index=False, sep=';')
                 df_buffer.seek(0)
                 zip_file.writestr(f'{filename}.csv', df_buffer.read())
 
