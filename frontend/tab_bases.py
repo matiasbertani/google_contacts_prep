@@ -118,7 +118,7 @@ layout = html.Div(
                 card_planilla_bases,
                 dbc.InputGroup(
                     [
-                        dbc.InputGroupText("RAZON SOCIAL", className="razon-social") ,
+                        dbc.InputGroupText("RAZON SOCIAL", className="razon-social"),
 
                         dcc.Dropdown(
                                 id='drop-razonsocial-bases',
