@@ -52,17 +52,33 @@ card_planilla_bases = dbc.Card(
                         width=4,
                     ),
                 ]),
+<<<<<<< HEAD
                 dbc.Row(
                     dt.DataTable(
                         id='datos-planilla-bases',
                     ),
                     class_name='uploaded-data-sheet'
                 )
+=======
+                dt.DataTable(
+                    id='datos-planilla-bases',
+                    style_table={
+                        # 'width': '60',
+                        # 'overflowX': 'scroll',
+                        # 'maxHeight': '250px',
+                        'overflowY': 'scroll'
+                    },
+                ),
+>>>>>>> 7343ad1 (adding some padding to form)
             ]
         ),
     ],
     color='transparent',
+<<<<<<< HEAD
     className='formulario-de-arriba',
+=======
+    className='formulario',
+>>>>>>> 7343ad1 (adding some padding to form)
 )
 
 
@@ -106,6 +122,7 @@ download_modal = html.Div(
 
 layout = html.Div(
     [
+<<<<<<< HEAD
         html.Div(
             [
                 dcc.Store(
@@ -130,6 +147,85 @@ layout = html.Div(
                     ],
                     className="razon-social-class",
                 ),
+=======
+            dcc.Store(
+                id='upload-datasheet-store',
+                clear_data=False,
+                storage_type='memory',
+                data={},
+            ),
+            download_modal,
+            card_planilla_bases,
+            dbc.InputGroup(
+                [
+                     dbc.InputGroupText("RAZON SOCIAL", className="razon-social") ,
+
+                    dcc.Dropdown(
+                            id='drop-razonsocial-bases',
+                            options=[],
+                            # style={'width': '200px'},
+                            className='drop-razonsocial-bases',
+                            value='Razon Social',
+                            placeholder='Ingrese el Nombre y Apellido',
+                    ),
+                ],
+                className="razon-social-class",
+            ),
+
+            dbc.InputGroup(
+                [
+                    dbc.InputGroupText("DNI: ", className="dni"),
+                    dcc.Dropdown(
+                                id='drop-dni-bases',
+                                options=[],
+                                value='Mat. Unica',
+                                style={'width': '200px'},
+                                placeholder='Seleccione un la columna dni',
+                                className="dni-bases",
+                    ),
+                ],
+                className="dni-class",
+            ),
+            dbc.InputGroup(
+                [
+                    dcc.Dropdown(
+                        id='drop-telefono-masivo-bases',
+                        value=['Telefono_1'],
+                        multi=True,
+                        style={'width': '400px'},
+                        className='drop-down-telefono-masivo-bases'
+                    ),
+                    dbc.InputGroupText("TELEFONOS MASIVOS"),
+                ],
+                className="mb-3",
+            ),
+            dbc.InputGroup(
+                [
+                    dcc.Dropdown(
+                        id='drop-telefono-otros-bases',
+                        multi=True,
+                        value=[f'Telefono_{i}' for i in range(2, 10)],
+                        # style={'width': '400px'}
+                        className='drop-down-telefono-masivo',
+                        ),
+                    dbc.InputGroupText("OTROS TELEFONOS"),
+                ],
+                className="drop-down-telefono-class",
+            ),
+            dbc.InputGroup(
+                [
+                    dbc.InputGroupText("SEPARAR POR: "),
+                    dcc.Dropdown(
+                        id='drop-separador-bases',
+                        options=[],
+                        value='Ejecutivo',
+                        placeholder='Separador',
+                        style={'width': '200px'}
+                    ),
+                ],
+                className="mb-3",
+            ),
+>>>>>>> 7343ad1 (adding some padding to form)
 
                 dbc.InputGroup(
                     [

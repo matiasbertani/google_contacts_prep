@@ -1,42 +1,21 @@
 @import url('./normalize.css');
 
-
 /* Estilos para el formulario */
 
 .text-center {
   text-align: center;
   font-family: 'Roboto', sans-serif;
-  font-size: 2.6rem;
+  font-size: 1.5rem;
   color: black;
-  position: relative;
-  margin-top: 40px;
-
 }
-.formulario-container {
-  border: 2px solid #ccc; /* Ancho y color del borde */
-  padding: 20px; /* Espacio interno del formulario */
-  border-radius: 10px; /* Bordes redondeados */
-  width: 900px; /* Ancho del formulario */
-  display: flex;
-  flex-direction: column;
+.formulario{
+  width: 900px;
+  height: 110px;
   justify-content: center;
-  align-items: center;
-  margin: 0 auto; /* Centra el formulario */
-  background-color: rgba(255, 255, 255, 0.897); /* Color de fondo */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
-  margin-top: 50px; /* Margen superior */
-  margin-bottom: 50px; /* Margen inferior */
   position: relative;
-
-}
-.formulario-de-arriba{
-  width: 700px;
-  left: 3%;
+  left: 20%;
   overflow-x: scroll;
   overflow-y: scroll;
-  position: relative;
-
-
 }
 input-group-container {
   position: relative;
@@ -50,25 +29,20 @@ input-group-container {
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: rgb(10, 4, 35);
-  left: 12%;
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
+  left: 30%;
 
 }
 .drop-razonsocial-bases{
   position: relative;
-  width: 400px;
+  left: 170%;
+  width: 250px;
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: black;
-  left: 38%;
 
 }
 .razon-social-class{
-
+  gap: 10px;
   margin: 10px auto;
 }
 
@@ -77,147 +51,30 @@ input-group-container {
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: rgb(10, 4, 35);
-  width: 250px;
+  width: 150px;
   position: relative;
-  left: 12%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  left: 30%;
 }
 .dni-bases{
-  position: relative;
-  width: 400px;
+  left: 215%;
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   color: black;
-  left: 38%;
+  width: 260px;
 }
 .dni-class{
-  margin: 5px auto;
+  gap: 10px;
+  margin: 10px auto;
 }
 
 /* teléfono */
-.telefono-masivo{
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  color: rgb(10, 4, 35);
-  width: 249px;
-  position: absolute;
-  left: 12%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.telefono-masivo-bases{
-  position: relative;
-  right: -100%;
-  width: 400px;
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  color: black;
-}
-.telefono-masivo-class{
+.drop-down-telefono-class{
   gap: 10px;
   margin: 10px auto;
-
 }
- /* Teléfono otros */
-.telefono-otros{
+.drop-down-telefono-masivo-bases{
+  left: 155%;
   font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  color: rgb(10, 4, 35);
-  width: 250px;
-  position: absolute;
-  left: 12%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.telefono-otros-bases{
-  position: relative;
-  left: 100%;
-  width: 400px;
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
+  font-family:'Roboto', sans-serif;
   color: black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.telefono-otros-class{
-  gap: 10px;
-  margin: 10px auto;
-
-}
-
-/* Separador */
-.separador {
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  color: rgb(10, 4, 35);
-  width: 250px;
-  position: absolute;
-  left: 12%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.separador-bases{
-  position: relative;
-  left: 100%;
-  width: 400px;
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  color: black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.separador-class{
-  gap: 10px;
-  margin: 10px auto;
-
-}
-.btn-form{
-  width: 200px;
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px auto;
-  border-radius: 5px;
-}
-.button-csv{
-  width: 150px;
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px auto;
-  border-radius: 5px;
-}
-
-.uploaded-data-sheet {
-  width: 100%;
-  min-width: 60vw;
-  overflow-x: auto;
-  overflow-y: auto;
-  max-height: 250px;
-}
-
-@media (max-width: 600px) {
-  .custom-data-table {
-      min-width: 100vw;
-  }
 }
