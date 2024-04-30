@@ -71,15 +71,14 @@ card_planilla_bases = dbc.Card(
         ),
     ],
     color='transparent',
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     className='formulario-de-arriba',
-=======
+
     className='formulario',
->>>>>>> 7343ad1 (adding some padding to form)
-=======
+
     className='formulario-de-arriba',
->>>>>>> e8f7ca4 (finish the task)
+
+    className='formulario-de-arriba',
 )
 
 
@@ -123,10 +122,7 @@ download_modal = html.Div(
 
 layout = html.Div(
     [
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e8f7ca4 (finish the task)
+
         html.Div(
             [
                 dcc.Store(
@@ -139,7 +135,7 @@ layout = html.Div(
                 card_planilla_bases,
                 dbc.InputGroup(
                     [
-<<<<<<< HEAD
+
                         dbc.InputGroupText("RAZON SOCIAL", className="razon-social"),
 
                         dcc.Dropdown(
@@ -152,7 +148,7 @@ layout = html.Div(
                     ],
                     className="razon-social-class",
                 ),
-=======
+
             dcc.Store(
                 id='upload-datasheet-store',
                 clear_data=False,
@@ -164,9 +160,11 @@ layout = html.Div(
             dbc.InputGroup(
                 [
                      dbc.InputGroupText("RAZON SOCIAL", className="razon-social") ,
-=======
+
                         dbc.InputGroupText("RAZON SOCIAL", className="razon-social") ,
->>>>>>> e8f7ca4 (finish the task)
+
+
+                        dbc.InputGroupText("RAZON SOCIAL", className="razon-social") ,
 
                         dcc.Dropdown(
                                 id='drop-razonsocial-bases',
@@ -176,7 +174,7 @@ layout = html.Div(
                                 value='Razon Social',
                                 placeholder='Ingrese el Nombre y Apellido',
                         ),
-<<<<<<< HEAD
+
                     dbc.InputGroupText("OTROS TELEFONOS"),
                 ],
                 className="drop-down-telefono-class",
@@ -194,12 +192,15 @@ layout = html.Div(
                 ],
                 className="mb-3",
             ),
->>>>>>> 7343ad1 (adding some padding to form)
-=======
+
                     ],
                     className="razon-social-class",
                 ),
->>>>>>> e8f7ca4 (finish the task)
+
+
+                    ],
+                    className="razon-social-class",
+                ),
 
                 dbc.InputGroup(
                     [
@@ -208,10 +209,12 @@ layout = html.Div(
                                     id='drop-dni-bases',
                                     options=[],
                                     value='Mat. Unica',
-<<<<<<< HEAD
-=======
+
+
                                     style={'width': '200px'},
->>>>>>> e8f7ca4 (finish the task)
+
+
+                                    style={'width': '200px'},
                                     placeholder='Seleccione un la columna dni',
                                     className="dni-bases",
                         ),
@@ -224,10 +227,11 @@ layout = html.Div(
                             id='drop-telefono-masivo-bases',
                             value=['Telefono_1'],
                             multi=True,
-<<<<<<< HEAD
-=======
+
                             style={'width': '400px'},
->>>>>>> e8f7ca4 (finish the task)
+
+
+                            style={'width': '400px'},
                             className='telefono-masivo-bases'
                         ),
                         dbc.InputGroupText("TELEFONOS MASIVOS", className="telefono-masivo"),
@@ -240,10 +244,11 @@ layout = html.Div(
                             id='drop-telefono-otros-bases',
                             multi=True,
                             value=[f'Telefono_{i}' for i in range(2, 10)],
-<<<<<<< HEAD
-=======
+
                             # style={'width': '400px'}
->>>>>>> e8f7ca4 (finish the task)
+
+                            # style={'width': '400px'}
+
                             className='telefono-otros-bases',
                             ),
                         dbc.InputGroupText("OTROS TELEFONOS", className="telefono-otros"),
@@ -258,10 +263,9 @@ layout = html.Div(
                             options=[],
                             value='Ejecutivo',
                             placeholder='Separador',
-<<<<<<< HEAD
-=======
+
                             # style={'width': '200px'}
->>>>>>> e8f7ca4 (finish the task)
+                            # style={'width': '200px'}
                             className='separador-bases',
                         ),
                     ],
@@ -270,11 +274,12 @@ layout = html.Div(
 
                 dbc.Button("Preparar Bases", id='boton-armar-bases', color="success", className="btn-form"),
             ],
-<<<<<<< HEAD
+
             className="formulario-container"
-=======
+
             className="formulario-container"  # Clase CSS para el contenedor del formulario
->>>>>>> e8f7ca4 (finish the task)
+
+            className="formulario-container"  # Clase CSS para el contenedor del formulario
         )
     ]
 )
